@@ -1,0 +1,76 @@
+# topology
+#
+#             r02 -- r03
+#             /  \     \
+#    ce1--r01 -- r04 -- r05--ce2
+#
+
+simulation:
+   no_image_copy: true
+
+devices:
+  r01:
+    image: /home/cisco/images/8000-x64.iso 
+    cvac: config/r01.cfg
+    platform: spitfire_f
+    linecard_types: [8201-32FH]
+
+  r02:
+    image: /home/cisco/images/8000-x64.iso 
+    cvac: config/r02.cfg
+    platform: spitfire_f
+    linecard_types: [8201-32FH]
+
+  r03:
+    image: /home/cisco/images/8000-x64.iso
+    cvac: config/r03.cfg
+    platform: spitfire_f
+    linecard_types: [8201-32FH]
+
+  r04:
+    image: /home/cisco/images/8000-x64.iso 
+    cvac: config/r04.cfg
+    platform: spitfire_f
+    linecard_types: [8201-32FH]
+
+  r05:
+    image: /home/cisco/images/8000-x64.iso 
+    cvac: config/r05.cfg
+    platform: spitfire_f
+    linecard_types: [8201-32FH]
+
+connections:
+  hubs:
+    r1r2:         
+      - r01.FourHundredGigE0/0/0/0
+      - r02.FourHundredGigE0/0/0/0
+
+    r1r4:         
+      - r01.FourHundredGigE0/0/0/1
+      - r04.FourHundredGigE0/0/0/0
+
+    r2r3:         
+      - r02.FourHundredGigE0/0/0/1
+      - r03.FourHundredGigE0/0/0/0
+
+    r2r4:         
+      - r02.FourHundredGigE0/0/0/2
+      - r04.FourHundredGigE0/0/0/1
+
+    r3r5:         
+      - r03.FourHundredGigE0/0/0/1
+      - r05.FourHundredGigE0/0/0/0
+
+    r4r5:         
+      - r04.FourHundredGigE0/0/0/2
+      - r05.FourHundredGigE0/0/0/1
+
+  custom:
+
+    ce1:
+      ports: [r01.FourHundredGigE0/0/0/2]
+      linux_bridge: ce1
+
+    ce2:
+      ports: [r05.FourHundredGigE0/0/0/2]
+      linux_bridge: ce2
