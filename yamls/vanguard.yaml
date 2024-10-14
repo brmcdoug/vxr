@@ -1,0 +1,7 @@
+devices:
+
+  R0:
+    platform: spitfire_d
+    image: /home/cisco/images/8000-x64.iso 
+    lcc_type: "8808"
+    linecard_types: ['8800-LC-36FH-M']

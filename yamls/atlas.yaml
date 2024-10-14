@@ -1,0 +1,7 @@
+devices:
+  R0:
+    platform: spitfire_c
+    image: /home/cisco/images/8000-x64.iso 
+    rp_type: "8712-MOD-AM"
+    lcc_type: "8704"
+    linecard_types: ['8K-MPA-16H']

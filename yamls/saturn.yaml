@@ -1,0 +1,6 @@
+devices:
+
+    R0:
+        platform: spitfire_f
+        image: /home/cisco/images/8000-x64.iso 
+        linecard_types: [8711-32FH-M]

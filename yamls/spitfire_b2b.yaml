@@ -1,0 +1,23 @@
+devices:
+
+  R0:
+    platform: spitfire_d
+    lcc_type: "8812"
+    num_linecards: 1
+    linecard_types: [corsair]
+    image: &image
+        /home/cisco/images/8000-x64.iso 
+
+  R1:
+    platform: spitfire_d
+    lcc_type: "8808"
+    image: *image
+    num_linecards: 1
+    linecard_types: [corsair]
+
+
+connections:
+    hubs:
+        b2b:
+        - R0.FourHundredGigE0/0/0/[0..35]
+        - R1.FourHundredGigE0/0/0/[0..35]

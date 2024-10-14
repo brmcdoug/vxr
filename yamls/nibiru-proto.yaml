@@ -1,0 +1,23 @@
+devices:
+
+  R0:
+    platform: spitfire_f-sswitch-proto
+    linecard_types: [8102-28FH-DPU-A]
+    aux_card_slots: [0,1] # DPU slots
+    image: /home/cisco/images/8000-x64.iso 
+    aux_images: /auto/vxr/images/smart-switch/esgw_dpu_loader-v2.img
+    onie-install: /auto/vxr/images/smart-switch/dsc_sim_elba_1.90.0-SP-3.tar.gz
+    xr_config: |
+      controller Optics0/0/0/28 breakout 2x100
+      controller Optics0/0/0/29 breakout 2x100
+      controller Optics0/0/0/30 breakout 2x100
+      controller Optics0/0/0/31 breakout 2x100
+    aux_configs:
+      aux0:
+        cli_commands: |
+          sudo ip link add link eth3 name eth3.3073 type vlan id 3073
+          sudo ifconfig eth3.3073 192.0.0.100/8 up
+      aux1:
+        cli_commands: |
+          sudo ip link add link eth3 name eth3.3073 type vlan id 3073
+          sudo ifconfig eth3.3073 192.0.0.101/8 up

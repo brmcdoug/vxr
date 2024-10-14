@@ -1,0 +1,36 @@
+simulation:
+  vxr_sim_config:
+    default:
+      ConfigGm8Pid: 8808-FC1-G
+      ConfigBb8Pid: 8808-FC1
+
+devices:
+
+#GM8
+  router0:
+    dual_rp: true
+    lcc_type: havoc-gb
+    platform: spitfire_d
+    rp_type: 8800-RP2
+    fabcard_type: 8808-FC1-G
+    linecard_slots:
+    - 1
+    linecard_types:
+    - 88-LC1-36EH
+    image: &image
+        /home/cisco/images/8000-x64.iso 
+
+#BB8
+  router1:
+    dual_rp: true
+    lcc_type: havoc-gb
+    platform: spitfire_d
+    rp_type: 8800-RP2
+    fabcard_type: 8808-FC1
+    linecard_slots:
+    - 1
+    linecard_types:
+    - 88-LC1-36EH
+    image: *image
+    pre_config: 'hw-module profile npu-compatibility Q200'
+    pre_cli: 'reload location all noprompt'

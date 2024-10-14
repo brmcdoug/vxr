@@ -1,0 +1,6 @@
+devices:
+
+    R0:
+        platform: c8011
+        linecard_types: ['8011-4G24Y4H-I']
+        image: /home/cisco/images/8000-aarch64.iso
