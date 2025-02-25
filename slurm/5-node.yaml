@@ -1,8 +1,8 @@
 # topology
 #
-#             r08        r09
-#             /            \
-#           r01 -- r02 -- r03
+#        ce-r08              ce-r09
+#            \                /
+#          pe-r01 -- r02 -- pe-r03
 
 devices:
   r01:

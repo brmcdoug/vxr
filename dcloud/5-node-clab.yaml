@@ -1,0 +1,45 @@
+# topology
+#
+#        ce-r08              ce-r09
+#            \                /
+#          pe-r01 -- r02 -- pe-r03
+
+name: 5-node-8000e
+
+mgmt:
+  network: mgt_net
+  ipv4-subnet: 172.20.6.0/24
+
+topology:
+
+  kinds:
+    linux:
+      image: 8201-32fh_clab363:latest
+
+  nodes:
+    r01:
+      kind: linux
+      mgmt-ipv4: 172.20.6.101
+      binds: [config/r01.cfg:/startup.cfg:ro]
+
+    r02:
+      kind: linux
+      mgmt-ipv4: 172.20.6.102
+      binds: [config/r02.cfg:/startup.cfg:ro]
+
+    r03:
+      kind: linux
+      mgmt-ipv4: 172.20.6.103
+      binds: [config/r03.cfg:/startup.cfg:ro]
+
+    r04:
+      kind: linux
+      mgmt-ipv4: 172.20.6.104
+      binds: [config/r04.cfg:/startup.cfg:ro]
+
+  links:
+    - endpoints: ["r01:FH0_0_0_0", "r02:FH0_0_0_0"]
+    - endpoints: ["r01:FH0_0_0_1", "r08:FH0_0_0_1"]
+    - endpoints: ["r02:FH0_0_0_1", "r03:FH0_0_0_0"]
+    - endpoints: ["r03:FH0_0_0_1", "r09:FH0_0_0_0"]
+
