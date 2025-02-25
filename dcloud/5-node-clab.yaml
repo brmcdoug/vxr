@@ -32,10 +32,15 @@ topology:
       mgmt-ipv4: 172.20.6.103
       binds: [config/r03.cfg:/startup.cfg:ro]
 
-    r04:
+    r08:
       kind: linux
-      mgmt-ipv4: 172.20.6.104
-      binds: [config/r04.cfg:/startup.cfg:ro]
+      mgmt-ipv4: 172.20.6.108
+      binds: [config/r08.cfg:/startup.cfg:ro]
+
+    r09:
+      kind: linux
+      mgmt-ipv4: 172.20.6.109
+      binds: [config/r09.cfg:/startup.cfg:ro]
 
   links:
     - endpoints: ["r01:FH0_0_0_0", "r02:FH0_0_0_0"]
