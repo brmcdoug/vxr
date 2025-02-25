@@ -29,7 +29,7 @@ sudo ip link set ce2 up
 Or simply run the *'add-bridges.sh'* shell script
 ```
 cd dcloud/
-./add-bridges.sh
+sudo ./add-bridges.sh
 ```
 ```
 cisco@linux-host-1:~$ brctl show

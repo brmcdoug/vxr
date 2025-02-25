@@ -1,12 +1,12 @@
 # topology
 #
-#        ce-r08              ce-r09
-#            \                /
-#          pe-r01 -- r02 -- pe-r03
+#             r08        r09
+#             /            \
+#           r01 -- r02 -- r03
 
 devices:
   r01:
-    image: 8000-x64-24.2.2.iso
+    image: /auto/iox-ucs-001-san2/prod/25.1.1.36I.SIT_IMAGE/8000/ws/img-8000/8000-x64.iso
     #cvac: config/r01.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -19,7 +19,7 @@ devices:
       ssh
 
   r02:
-    image: 8000-x64-24.2.2.iso
+    image: /auto/iox-ucs-001-san2/prod/25.1.1.36I.SIT_IMAGE/8000/ws/img-8000/8000-x64.iso
     #cvac: config/r02.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -32,7 +32,7 @@ devices:
       ssh
 
   r03:
-    image: 8000-x64-24.2.2.iso
+    image: /auto/iox-ucs-001-san2/prod/25.1.1.36I.SIT_IMAGE/8000/ws/img-8000/8000-x64.iso
     #cvac: config/r03.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -45,7 +45,7 @@ devices:
       ssh
 
   r08:
-    image: 8000-x64-24.2.2.iso
+    image: /auto/iox-ucs-001-san2/prod/25.1.1.36I.SIT_IMAGE/8000/ws/img-8000/8000-x64.iso
     #cvac: config/r04.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -58,7 +58,7 @@ devices:
       ssh
 
   r09:
-    image: 8000-x64-24.2.2.iso
+    image: /auto/iox-ucs-001-san2/prod/25.1.1.36I.SIT_IMAGE/8000/ws/img-8000/8000-x64.iso
     #cvac: config/r05.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
