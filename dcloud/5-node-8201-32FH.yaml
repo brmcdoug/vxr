@@ -6,7 +6,7 @@
 
 devices:
   r01:
-    image: 8000-x64-24.2.2.iso
+    image: /home/cisco/images/8000-x64-24.2.2.iso
     #cvac: config/r01.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -19,7 +19,7 @@ devices:
       ssh
 
   r02:
-    image: 8000-x64-24.2.2.iso
+    image: /home/cisco/images/8000-x64-24.2.2.iso
     #cvac: config/r02.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -32,7 +32,7 @@ devices:
       ssh
 
   r03:
-    image: 8000-x64-24.2.2.iso
+    image: /home/cisco/images/8000-x64-24.2.2.iso
     #cvac: config/r03.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -45,7 +45,7 @@ devices:
       ssh
 
   r08:
-    image: 8000-x64-24.2.2.iso
+    image: /home/cisco/images/8000-x64-24.2.2.iso
     #cvac: config/r04.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
@@ -58,7 +58,7 @@ devices:
       ssh
 
   r09:
-    image: 8000-x64-24.2.2.iso
+    image: /home/cisco/images/8000-x64-24.2.2.iso
     #cvac: config/r05.cfg
     platform: spitfire_f
     linecard_types: [8201-32FH]
