@@ -1,9 +1,0 @@
-devices:
-  R0:
-    platform: spitfire_f
-    linecard_types:
-      - 8011-24X-A  # (or 8011-12G12X4Y-A for Madone_25G)
-    image: /home/cisco/images/8000-aarch64.iso
-    xr_config: |
-      fan-control card-shutdown disable
-      fan-control chassis-shutdown disable

@@ -1,7 +1,0 @@
-devices:
-
-  R0:
-    platform: spitfire_d
-    lcc_type: '8808'
-    linecard_types: ['88-LC0-34H14FH']
-    image: /home/cisco/images/8000-x64.iso 

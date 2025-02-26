@@ -1,7 +1,0 @@
-devices:
-  R0: 
-    platform: spitfire_c 
-    lcc_type: "8404" 
-    image: /home/cisco/images/8000-aarch64.iso
-    linecard_slots: [2] # valid slots: [2, 3, 4, 5] 
-    linecard_types: ["84-MPA-2FH/6H-M"] # or "84-MPA-2H12Z-M"
