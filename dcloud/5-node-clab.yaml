@@ -44,7 +44,7 @@ topology:
 
   links:
     - endpoints: ["r01:FH0_0_0_0", "r02:FH0_0_0_0"]
-    - endpoints: ["r01:FH0_0_0_1", "r08:FH0_0_0_1"]
+    - endpoints: ["r01:FH0_0_0_1", "r08:FH0_0_0_0"]
     - endpoints: ["r02:FH0_0_0_1", "r03:FH0_0_0_0"]
     - endpoints: ["r03:FH0_0_0_1", "r09:FH0_0_0_0"]
 
