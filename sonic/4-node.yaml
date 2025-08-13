@@ -1,0 +1,64 @@
+# topology
+#
+#        r01 r02           
+#         | X |  
+#        r00 r03
+
+simulation:
+  no_image_copy: true
+
+devices:
+  r00: 
+    platform: spitfire_f
+    linecard_types: ['8122-64EH-O'] 
+    os_type: sonic
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+
+  r01: 
+    platform: spitfire_f
+    linecard_types: ['8122-64EH-O'] 
+    os_type: sonic
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+
+  r02: 
+    platform: spitfire_f
+    linecard_types: ['8122-64EH-O'] 
+    os_type: sonic
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+
+  r03: 
+    platform: spitfire_f
+    linecard_types: ['8122-64EH-O'] 
+    os_type: sonic
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+
+connections:
+  hubs:
+    r00r01:         
+      - r00.EightHundredGigE0/0/0/0
+      - r01.EightHundredGigE0/0/0/0
+    r00r02:         
+      - r00.EightHundredGigE0/0/0/1
+      - r02.EightHundredGigE0/0/0/0
+
+    r03r01:         
+      - r03.EightHundredGigE0/0/0/0
+      - r01.EightHundredGigE0/0/0/1
+
+    r03r02:         
+      - r03.EightHundredGigE0/0/0/1
+      - r02.EightHundredGigE0/0/0/1
+
+  
