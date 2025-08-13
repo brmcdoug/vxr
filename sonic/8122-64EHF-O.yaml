@@ -63,18 +63,18 @@ devices:
 connections:
   hubs:
     r00r01:         
-      - r00.EightHundredGigE0/0/0/0
-      - r01.EightHundredGigE0/0/0/0
+      - r00.Ethernet0
+      - r01.Ethernet0
     r00r02:         
-      - r00.EightHundredGigE0/0/0/1
-      - r02.EightHundredGigE0/0/0/0
+      - r00.Ethernet1
+      - r02.Ethernet0
 
     r03r01:         
-      - r03.EightHundredGigE0/0/0/0
-      - r01.EightHundredGigE0/0/0/1
+      - r03.Ethernet0
+      - r01.Ethernet1
 
     r03r02:         
-      - r03.EightHundredGigE0/0/0/1
-      - r02.EightHundredGigE0/0/0/1
+      - r03.Ethernet1
+      - r02.Ethernet1
 
   
