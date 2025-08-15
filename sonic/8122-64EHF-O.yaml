@@ -1,14 +1,16 @@
 # topology
 #
-#        r01 r02           
-#         | X |  
-#        r00 r03
+#          s00  s01           
+#        X  X  X  X
+#     l00  l01  l02  l03
+          
+
 
 simulation:
   no_image_copy: true
 
 devices:
-  r00: 
+  l00: 
     platform: spitfire_f
     os_type: sonic
     linecard_types:
@@ -17,11 +19,14 @@ devices:
     linux_password: "cisco123"
     image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname leaf00
+                sudo config interface ip add eth0 192.168.122.128/24
     port_breakout:
       lc0:
         0..63: 2x400 
 
-  r01: 
+  l01: 
     platform: spitfire_f
     os_type: sonic
     linecard_types:
@@ -30,11 +35,14 @@ devices:
     linux_password: "cisco123"
     image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname leaf01
+                sudo config interface ip add eth0 192.168.122.129/24
     port_breakout:
       lc0:
         0..63: 2x400 
 
-  r02: 
+  l02: 
     platform: spitfire_f
     os_type: sonic
     linecard_types:
@@ -43,11 +51,14 @@ devices:
     linux_password: "cisco123"
     image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname leaf02
+                sudo config interface ip add eth0 192.168.122.130/24
     port_breakout:
       lc0:
         0..63: 2x400 
 
-  r03: 
+  l03: 
     platform: spitfire_f
     os_type: sonic
     linecard_types:
@@ -56,25 +67,76 @@ devices:
     linux_password: "cisco123"
     image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname leaf03
+                sudo config interface ip add eth0 192.168.122.131/24
+    port_breakout:
+      lc0:
+        0..63: 2x400 
+
+  s00: 
+    platform: spitfire_f
+    os_type: sonic
+    linecard_types:
+    - 8122-64EHF-O
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname spine00
+                sudo config interface ip add eth0 192.168.122.192/24
+    port_breakout:
+      lc0:
+        0..63: 2x400 
+
+  s01: 
+    platform: spitfire_f
+    os_type: sonic
+    linecard_types:
+    - 8122-64EHF-O
+    linux_username: "cisco"
+    linux_password: "cisco123"
+    image: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft15.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    cli_commands: |
+                sudo config hostname spine01
+                sudo config interface ip add eth0 192.168.122.193/24
     port_breakout:
       lc0:
         0..63: 2x400 
 
 connections:
   hubs:
-    r00r01:         
-      - r00.Ethernet0/0
-      - r01.Ethernet0/0
-    r00r02:         
-      - r00.Ethernet1/0
-      - r02.Ethernet0/0
+    l00s00:         
+      - l00.Ethernet0/0
+      - s00.Ethernet0/0
+    l00s01:         
+      - l00.Ethernet1/0
+      - s01.Ethernet0/0
 
-    r03r01:         
-      - r03.Ethernet0/0
-      - r01.Ethernet1/0
+    l01s00:         
+      - l01.Ethernet0/0
+      - s00.Ethernet1/0
 
-    r03r02:         
-      - r03.Ethernet1/0
-      - r02.Ethernet1/0
+    l01s01:         
+      - l01.Ethernet1/0
+      - s01.Ethernet1/0
+
+    l02s00:         
+      - l02.Ethernet0/0
+      - s00.Ethernet2/0
+
+    l02s01:         
+      - l02.Ethernet1/0
+      - s01.Ethernet2/0
+
+    l03s00:         
+      - l03.Ethernet0/0
+      - s00.Ethernet3/0
+
+    l03s01:         
+      - l03.Ethernet1/0
+      - s01.Ethernet3/0 
 
   
