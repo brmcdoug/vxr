@@ -11,7 +11,7 @@ devices:
   r00: 
     platform: spitfire_f
     #linecard_types: ['8122-64EH-O'] 
-    linecard_types: ['8201-24H8FH-O'] 
+    linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
     linux_password: "cisco123"
@@ -21,7 +21,7 @@ devices:
   r01: 
     platform: spitfire_f
     #linecard_types: ['8122-64EH-O'] 
-    linecard_types: ['8201-24H8FH-O'] 
+    linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
     linux_password: "cisco123"
@@ -31,7 +31,7 @@ devices:
   r02: 
     platform: spitfire_f
     #linecard_types: ['8122-64EH-O'] 
-    linecard_types: ['8201-24H8FH-O'] 
+    linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
     linux_password: "cisco123"
@@ -41,7 +41,7 @@ devices:
   r03: 
     platform: spitfire_f
     #linecard_types: ['8122-64EH-O'] 
-    linecard_types: ['8201-24H8FH-O'] 
+    linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
     linux_password: "cisco123"
