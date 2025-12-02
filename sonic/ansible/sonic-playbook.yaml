@@ -9,7 +9,7 @@
 
     - name: Copy config_baseline.json files
       copy:
-        src: "../config/{{ inventory_hostname }}/config_db.json"
+        src: "../{{ inventory_hostname }}/config_db.json"
         dest: "/etc/sonic/config_db.json"
         mode: 0644
 
@@ -43,12 +43,12 @@
     #   command: "sudo ip link set sr0 up"
     #   ignore_errors: yes
 
-    - name: Delete default sonic-vs BGP config
-      ansible.builtin.command: >
-        vtysh -c "configure terminal"
-        -c "no router bgp 65100"
-        -c "exit"
-      ignore_errors: yes
+    # - name: Delete default sonic-vs BGP config
+    #   ansible.builtin.command: >
+    #     vtysh -c "configure terminal"
+    #     -c "no router bgp 65100"
+    #     -c "exit"
+    #   ignore_errors: yes
 
 - name: Load frr config
   hosts: sonic
@@ -64,7 +64,7 @@
 
     - name: Copy frr config files
       copy:
-        src: "../config/{{ inventory_hostname }}/frr.conf"
+        src: "../{{ inventory_hostname }}/frr.conf"
         dest: "/etc/sonic/frr/bgpd.conf"
         mode: 0644
 
