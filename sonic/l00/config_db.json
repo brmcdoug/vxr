@@ -1,0 +1,27 @@
+{
+    "DEVICE_METADATA": {
+        "localhost": {
+            "mac": "02:42:ac:14:06:64",
+            "switch_type": "switch",
+            "buffer_model": "traditional",
+            "hwsku": "Force10-S6000",
+            "hostname": "dc01-t1-n11",
+            "type": "SpineRouter",
+            "bgp_asn": "4200000105",
+            "docker_routing_config_mode": "split"
+        }
+    },
+    
+    "LOOPBACK_INTERFACE": {
+        "Loopback0": {},
+        "Loopback0|20.0.0.64/32": {},
+        "Loopback0|fc00:0:1100::1/128": {}
+    },
+
+    "INTERFACE": {
+        "Ethernet0": {},
+        "Ethernet0|2001:db8:1:1::1/127": {}
+    }
+}
+
+
