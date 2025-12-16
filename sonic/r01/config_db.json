@@ -5,7 +5,7 @@
             "switch_type": "switch",
             "buffer_model": "traditional",
             "hostname": "r01",
-            "bgp_asn": "65001",
+            "bgp_asn": "65002",
             "docker_routing_config_mode": "split"
         }
     },
@@ -18,11 +18,11 @@
 
     "INTERFACE": {
         "Ethernet0": {},
-        "Ethernet0|10.1.1.4/31": {},
-        "Ethernet0|2001:db8:1:1::4/127": {},
+        "Ethernet0|10.1.1.1/31": {},
+        "Ethernet0|2001:db8:1:1::1/127": {},
         "Ethernet8": {},
-        "Ethernet8|10.1.1.6/31": {},
-        "Ethernet8|2001:db8:1:1::6/127": {}
+        "Ethernet8|10.1.1.5/31": {},
+        "Ethernet8|2001:db8:1:1::5/127": {}
     }
 }
 
