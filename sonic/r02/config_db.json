@@ -18,8 +18,10 @@
 
     "INTERFACE": {
         "Ethernet0": {},
+        "Ethernet0|10.1.1.1/31": {},
         "Ethernet0|2001:db8:1:1::1/127": {},
         "Ethernet8": {},
+        "Ethernet8|10.1.1.5/31": {},
         "Ethernet8|2001:db8:1:1::5/127": {}
     }
 }

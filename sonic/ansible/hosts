@@ -2,9 +2,9 @@
 localhost ansible_connection=local
 
 [sonic]
-r00 ansible_host=192.168.122.214
-r01 ansible_host=192.168.122.201
-r02 ansible_host=192.168.122.200
-r03 ansible_host=192.168.122.249
+r00 ansible_host=192.168.122.207
+r01 ansible_host=192.168.122.247
+r02 ansible_host=192.168.122.241
+r03 ansible_host=192.168.122.206
 
 ansible_ssh_common_args="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
