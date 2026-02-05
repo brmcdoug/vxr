@@ -9,9 +9,9 @@
 tar -xvf 8000-emulator-eft12.1.tar
 ```
 
-2. cd into the 'scripts' directory and run the Ubuntu server setup script then reboot
+2. Install the **vxr.py** tool: cd into the 'scripts' directory and run the Ubuntu server setup script then reboot
 ```
-sudo ./UbuntuServerManualSetup.sh
+sudo ./ubuntuServerManualSetup.sh
 ```
    * The script takes a few minutes to run and may have a couple user prompts. Look for terminal output: [SERVER SETUP IS COMPLETED]
 
