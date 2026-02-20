@@ -63,18 +63,19 @@ devices:
 connections:
   hubs:
     r00r01:         
-      - r00.Ethernet0
-      - r01.Ethernet0
+      - r00.Ethernet0/0
+      - r01.Ethernet0/0
+
     r00r02:         
-      - r00.Ethernet1
-      - r02.Ethernet0
+      - r00.Ethernet1/0
+      - r02.Ethernet0/0
 
     r03r01:         
-      - r03.Ethernet0
-      - r01.Ethernet1
+      - r03.Ethernet0/0
+      - r01.Ethernet1/0
 
     r03r02:         
-      - r03.Ethernet1
-      - r02.Ethernet1
+      - r03.Ethernet1/0
+      - r02.Ethernet1/0
 
   
