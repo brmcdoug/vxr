@@ -10,7 +10,7 @@ simulation:
 devices:
   r00: 
     platform: spitfire_f
-    linecard_types: ['8122-64EH-O'] 
+    linecard_types: ['8122-64EHF-O'] 
     #linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
@@ -21,7 +21,7 @@ devices:
 
   r01: 
     platform: spitfire_f
-    linecard_types: ['8122-64EH-O'] 
+    linecard_types: ['8122-64EHF-O'] 
     #linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
@@ -32,7 +32,7 @@ devices:
 
   r02: 
     platform: spitfire_f
-    linecard_types: ['8122-64EH-O'] 
+    linecard_types: ['8122-64EHF-O'] 
     #linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
@@ -42,7 +42,7 @@ devices:
     qemu_args: -uuid eaf1870e-43ed-4806-bda3-4dc57bed8dd6
   r03: 
     platform: spitfire_f
-    linecard_types: ['8122-64EH-O'] 
+    linecard_types: ['8122-64EHF-O'] 
     #linecard_types: ['8201-32FH'] 
     os_type: sonic
     linux_username: "cisco"
