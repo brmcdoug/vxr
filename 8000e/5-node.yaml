@@ -9,7 +9,9 @@ devices:
     image: 8000-x64.iso
     #cvac: config/r01.cfg
     platform: spitfire_f
-    linecard_types: [8201-32FH]
+    #linecard_types: [8201-32FH]
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
     xr_config: |
       hostname r01
       ssh server vrf default
@@ -22,7 +24,9 @@ devices:
     image: 8000-x64.iso
     #cvac: config/r02.cfg
     platform: spitfire_f
-    linecard_types: [8201-32FH]
+    #linecard_types: [8201-32FH]
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
     xr_config: |
       hostname r02
       ssh server vrf default
@@ -35,7 +39,9 @@ devices:
     image: 8000-x64.iso
     #cvac: config/r03.cfg
     platform: spitfire_f
-    linecard_types: [8201-32FH]
+    #linecard_types: [8201-32FH]
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
     xr_config: |
       hostname r03
       ssh server vrf default
@@ -48,7 +54,9 @@ devices:
     image: 8000-x64.iso
     #cvac: config/r04.cfg
     platform: spitfire_f
-    linecard_types: [8201-32FH]
+    #linecard_types: [8201-32FH]
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
     xr_config: |
       hostname r04
       ssh server vrf default
@@ -61,7 +69,9 @@ devices:
     image: 8000-x64.iso
     #cvac: config/r05.cfg
     platform: spitfire_f
-    linecard_types: [8201-32FH]
+    #linecard_types: [8201-32FH]
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
     xr_config: |
       hostname r05
       ssh server vrf default

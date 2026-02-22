@@ -1,0 +1,15 @@
+
+devices:
+  r01:
+    image: 8000-x64.iso
+    platform: spitfire_f
+    linecard_types: ['8223-64EF-M']
+    npu_asic_versions: [A0]
+    xr_config: |
+      hostname r01
+      ssh server vrf default
+      ssh server rate-limit 600
+      ssh server session-limit 100
+      snmp-server community public RO
+      ssh
+
