@@ -21,7 +21,7 @@ topology:
     spine00:
       kind: linux
       image: sonic-8000e:latest
-      mgmt-ipv4: 172.20.2.103
+      mgmt-ipv4: 172.20.2.102
 
     spine01:
       kind: linux
@@ -32,7 +32,7 @@ topology:
     host00:
       kind: linux
       image: iejalapeno/alpine-srv6:1.0
-      mgmt-ipv4: 172.20.8.192
+      mgmt-ipv4: 172.20.2.104
       exec:
         - "ip addr add 200.0.100.2/24 dev eth1"
         - "ip addr add fc00:0:A000:0::2/64 dev eth1"
@@ -44,7 +44,7 @@ topology:
     host01:
       kind: linux
       image: iejalapeno/alpine-srv6:1.0
-      mgmt-ipv4: 172.20.8.193
+      mgmt-ipv4: 172.20.2.105
       exec:
         - "ip addr add 200.1.100.2/24 dev eth1"
         - "ip addr add fc00:0:A000:1::2/64 dev eth1"
