@@ -1,0 +1,69 @@
+name: 8122
+
+mgmt:
+  network: mgt_sonic
+  ipv4-subnet: 172.20.2.0/24
+
+topology:
+  nodes:
+
+# sonic nodes
+    leaf00:
+      kind: linux
+      image: sonic-8000e:latest
+      mgmt-ipv4: 172.20.2.100
+
+    leaf01:
+      kind: linux
+      image: sonic-8000e:latest
+      mgmt-ipv4: 172.20.2.101
+
+    spine00:
+      kind: linux
+      image: sonic-8000e:latest
+      mgmt-ipv4: 172.20.2.103
+
+    spine01:
+      kind: linux
+      image: sonic-8000e:latest
+      mgmt-ipv4: 172.20.2.103
+
+## comment hosts out if not needed
+    host00:
+      kind: linux
+      image: iejalapeno/alpine-srv6:1.0
+      mgmt-ipv4: 172.20.8.192
+      exec:
+        - "ip addr add 200.0.100.2/24 dev eth1"
+        - "ip addr add fc00:0:A000:0::2/64 dev eth1"
+        - "ip -6 route add fc00:0::/32 via fc00:0:A000:0::1 dev eth1"
+        - "ip -6 route add fc00:0:a000:1::/64 encap seg6 mode encap.red segs fc00:0:fe00:fe04:fe16:: dev eth1"
+        - "ip -6 route add fc00:0:a000:2::/64 encap seg6 mode encap.red segs fc00:0:fe04:fe08:fe16:: dev eth1"
+        - "ip -6 route add fc00:0::/128 dev eth1 encap seg6local action End.DT6 table 0"
+
+    host01:
+      kind: linux
+      image: iejalapeno/alpine-srv6:1.0
+      mgmt-ipv4: 172.20.8.193
+      exec:
+        - "ip addr add 200.1.100.2/24 dev eth1"
+        - "ip addr add fc00:0:A000:1::2/64 dev eth1"
+        - "ip -6 route add fc00:0::/32 via fc00:0:A000:1::1 dev eth1"
+        - "ip -6 route add fc00:0:a000:0::/64 encap seg6 mode encap.red segs fc00:0:fe00:fe00:fe16:: dev eth1"
+        - "ip -6 route add fc00:0:a000:2::/64 encap seg6 mode encap.red segs fc00:0:fe08:fe08:fe16:: dev eth1"
+        - "ip -6 route add fc00:0::/128 dev eth1 encap seg6local action End.DT6 table 0"
+
+  links:
+
+    - endpoints: ["leaf00:eth1", "spine00:eth1"]
+    - endpoints: ["leaf00:eth2", "spine01:eth1"]
+
+    - endpoints: ["leaf01:eth1", "spine00:eth2"]
+    - endpoints: ["leaf01:eth2", "spine01:eth2"]
+
+# comment host links out if not needed
+    - endpoints: ["leaf00:eth5", "host00:eth1"]
+    - endpoints: ["leaf00:eth6", "host00:eth2"] 
+
+    - endpoints: ["leaf01:eth5", "host01:eth1"]
+    - endpoints: ["leaf01:eth6", "host01:eth2"]
