@@ -12,8 +12,12 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "admin123"
+    mgmt_gateway_ip: "192.168.122.1"
+    linux_config: |
+        ip addr add dev eth0 192.168.122.100/24
+        ip link set dev eth0 up
     image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid 002aac7b-2e72-45aa-9722-0456901ea895
@@ -25,8 +29,12 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "admin123"
+    mgmt_gateway_ip: "192.168.122.1"
+    linux_config: |
+        ip addr add dev eth0 192.168.122.101/24
+        ip link set dev eth0 up
     image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid be46f561-2ca8-4670-addd-6619c4c58d5e
@@ -38,8 +46,12 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "admin123"
+    mgmt_gateway_ip: "192.168.122.1"
+    linux_config: |
+        ip addr add dev eth0 192.168.122.102/24
+        ip link set dev eth0 up
     image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid eaf1870e-43ed-4806-bda3-4dc57bed8dd6
@@ -51,8 +63,12 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "admin123"
+    mgmt_gateway_ip: "192.168.122.1"
+    linux_config: |
+        ip addr add dev eth0 192.168.122.103/24
+        ip link set dev eth0 up
     image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
     onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid be36fb91-8218-49eb-bda5-94fea84b5e1c
