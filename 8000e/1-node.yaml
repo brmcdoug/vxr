@@ -1,7 +1,7 @@
 
 devices:
   r01:
-    image: /home/cisco/images/8000-x64.iso
+    image: /home/cisco/images/mustang-8000-x64.iso
     platform: spitfire_f
     linecard_types: ['8223-64EF-M']
     npu_asic_versions: [A0]
