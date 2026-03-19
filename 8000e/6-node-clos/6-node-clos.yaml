@@ -123,3 +123,13 @@ connections:
     s2l4:         
       - s02.EightHundredGigE0/0/0/3
       - l04.EightHundredGigE0/0/0/1
+
+  custom:
+
+    ceos1:
+      ports: [l01.EightHundredGigE0/0/0/2]
+      linux_bridge: ceos1-l01
+
+    ceos2:
+      ports: [l02.EightHundredGigE0/0/0/2]
+      linux_bridge: ceos2-l02
