@@ -16,7 +16,7 @@ Requirements:
 
 Instructions:
 
->[Note] if VXR is already installed and images acquired skip ahead to: [this step in the instructions](#deploy-topology)
+>[Note] if VXR is already installed and images acquired skip ahead to: [Deploy Topology](#deploy-topology)
 
 1. untar VXR and sonic image packages
 ```
