@@ -1,0 +1,44 @@
+name: 8122-fabric
+prefix: ""
+
+mgmt:
+  network: mgt_sonic
+  ipv4-subnet: 172.20.2.0/24
+
+topology:
+  kinds:
+    linux:
+      image: c8000-clab-sonic:92
+      binds: 
+          - /opt/cisco/images:/images
+      env:
+          IMAGE: /opt/cisco/images/sonic-cisco-8000.bin
+          PID: '8101-32FH-O'
+  nodes:
+
+# sonic nodes
+    leaf00:
+      kind: linux
+      mgmt-ipv4: 172.20.2.100
+
+    leaf01:
+      kind: linux
+      mgmt-ipv4: 172.20.2.101
+
+    spine00:
+      kind: linux
+      mgmt-ipv4: 172.20.2.102
+
+    spine01:
+      kind: linux
+      mgmt-ipv4: 172.20.2.103
+
+
+  links:
+
+    - endpoints: ["leaf00:eth1", "spine00:eth1"]
+    - endpoints: ["leaf00:eth2", "spine01:eth1"]
+
+    - endpoints: ["leaf01:eth1", "spine00:eth2"]
+    - endpoints: ["leaf01:eth2", "spine01:eth2"]
+
