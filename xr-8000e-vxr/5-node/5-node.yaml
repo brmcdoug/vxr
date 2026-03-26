@@ -98,3 +98,12 @@ connections:
       - r03.FourHundredGigE0/0/0/1
       - r09.FourHundredGigE0/0/0/0
 
+  custom:
+
+    br1:
+      ports: [l01.EightHundredGigE0/0/0/2]
+      linux_bridge: br1
+
+    ceos2:
+      ports: [l02.EightHundredGigE0/0/0/2]
+      linux_bridge: ceos2-l02
