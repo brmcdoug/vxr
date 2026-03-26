@@ -16,7 +16,9 @@ Requirements:
 
 Instructions:
 
->[Note] if VXR is already installed and images acquired skip ahead to [this step in the instructions]
+>[Note] if VXR is already installed and images acquired skip ahead to:
+
+[this step in the instructions](./README.md#63)
 
 1. untar VXR and sonic image packages
 ```
