@@ -7,7 +7,7 @@ mgmt:
 
 topology:
   kinds:
-    sonic8122:
+    linux:
       image: c8000-clab-sonic:92
       binds: 
           - /opt//cisco/images:/images
@@ -18,19 +18,19 @@ topology:
 
 # sonic nodes
     leaf00:
-      kind: sonic8122
+      kind: linux
       mgmt-ipv4: 172.20.2.100
 
     leaf01:
-      kind: sonic8122
+      kind: linux
       mgmt-ipv4: 172.20.2.101
 
     spine00:
-      kind: sonic8122
+      kind: linux
       mgmt-ipv4: 172.20.2.102
 
     spine01:
-      kind: sonic8122
+      kind: linux
       mgmt-ipv4: 172.20.2.103
 
 
