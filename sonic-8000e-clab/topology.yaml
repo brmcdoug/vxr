@@ -12,7 +12,7 @@ topology:
       binds: 
           - /opt/cisco/images:/images
       env:
-          IMAGE: /images/sonic-cisco-8000.bin
+          IMAGE: /opt/cisco/images/sonic-cisco-8000.bin
           PID: '8122-64EHF-O'
   nodes:
 
