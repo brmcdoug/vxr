@@ -18,7 +18,7 @@ Instructions:
 
 >[Note] if VXR is already installed and images acquired skip ahead to:
 
-[this step in the instructions](./README.md#63)
+    [this step in the instructions](#deploy-topology)
 
 1. untar VXR and sonic image packages
 ```
@@ -60,7 +60,9 @@ Setting up vxr2-ngdp-sdkdc-24.10.2230.6 (1-1) ...
 git clone https://github.com/brmcdoug/cisco8000e.git
 ```
 
-6. cd into vxr/sonic directory and deploy the 4-node test topology:
+### Deploy topology
+
+1. cd into vxr/sonic directory and deploy the 4-node test topology:
 ```
 cd cisco8000e/sonic-8000e-vxr/
 vxr.py start 4-node.yaml 
