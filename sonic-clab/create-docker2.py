@@ -105,7 +105,6 @@ PLATFORM_MAPPING = {
     '8000': '8000',
     '8101': '8101-32H',      # Default 8101 variant
     '8102': '8102-64H',
-    '8122': '8122-64EHF-O',
     '8201': '8201-32FH',     # Default 8201 variant  
     '8202': '8202',          # Default 8202 variant
     '8212': '8212-48FH-M',
@@ -118,7 +117,6 @@ PLATFORM_MAPPING = {
     '8101-32H': '8101-32H',
     '8102-64H': '8102-64H', 
     '8111-32EH': '8111-32EH',
-    '8122-64EHF-O': '8122-64EHF-O',
     '8201-24H8FH': '8201-24H8FH',
     '8201-sys': '8201-sys',
     '8201-32FH': '8201-32FH',
@@ -137,7 +135,6 @@ QCOW2_TO_PLATFORM = {
     '8101-32FH-x64': '8101-32FH',
     '8102-x64': '8102-64H',
     '8111-32EH-x64': '8111-32EH',
-    '8122-64EHF-O-x64': '8122-64EHF-O',
     '8201-x64': '8201-32FH',     # Standard 8201
     '8202-x64': '8202',
     '8202-32FH-M-x64': '8202-32FH-M',
@@ -336,6 +333,7 @@ class CreateSingleDocker:
             logger.info(f"Using custom temp directory: {self.temp_dir}")
         else:
             self.temp_dir = Path(tempfile.mkdtemp(prefix="create_single_docker_"))
+            self.temp_dir.chmod(0o755)
             logger.info(f"Created temp directory to extract files: {self.temp_dir}")
             
     def _extract_tar_file(self, tar_path, extract_to):
@@ -363,14 +361,88 @@ class CreateSingleDocker:
         """
         Extract SDK version from ISO file using isoinfo command.
         Uses: isoinfo -R -x /sim_cfg.yml -i <iso_path>
-        Returns SDK version string like "24.11.4111.5" or None if extraction fails.
+        Returns SDK version string like "sdkdc-24.10.2230.6" or None if extraction fails.
         
-        NOTE: Hardcoded to return "sdkdc-24.10.2230.6" for consistent builds.
+        Tries multiple field names from sim_cfg.yml to handle different release formats,
+        then checks installed dpkg packages as a fallback.
         """
-        # Hardcoded SDK version
-        hardcoded_version = "sdkdc-24.10.2230.6"
-        logger.info(f"Using hardcoded SDK version: {hardcoded_version}")
-        return hardcoded_version
+        try:
+            if not shutil.which('isoinfo'):
+                logger.warning("isoinfo command not found, cannot extract SDK version")
+                return None
+                
+            logger.debug(f"Extracting SDK version from ISO: {iso_path}")
+            
+            result = subprocess.run(
+                ['isoinfo', '-R', '-x', '/sim_cfg.yml', '-i', str(iso_path)],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if result.returncode != 0:
+                logger.warning(f"isoinfo command failed with return code {result.returncode}")
+                logger.warning(f"isoinfo stderr: {result.stderr}")
+                return self._extract_sdk_version_from_dpkg()
+            
+            sim_cfg = result.stdout
+            if sim_cfg.strip():
+                logger.info(f"sim_cfg.yml contents:\n{sim_cfg.strip()}")
+            
+            sdk_fields = ["sdk:", "sdk_ver_pacific:", "sdk_version:", "sdkdc:"]
+            for line in sim_cfg.split('\n'):
+                line = line.strip()
+                for field in sdk_fields:
+                    if line.startswith(field):
+                        sdk_version = line.split(':', 1)[1].strip()
+                        if sdk_version:
+                            logger.info(f"Extracted SDK version '{sdk_version}' from field '{field}'")
+                            return sdk_version
+            
+            # Generic fallback: any line containing 'sdk' (case-insensitive)
+            for line in sim_cfg.split('\n'):
+                if 'sdk' in line.lower() and ':' in line:
+                    sdk_version = line.split(':', 1)[1].strip()
+                    if sdk_version:
+                        logger.info(f"Extracted SDK version '{sdk_version}' from line: {line.strip()}")
+                        return sdk_version
+                    
+            logger.warning("SDK version not found in sim_cfg.yml, trying dpkg fallback")
+            return self._extract_sdk_version_from_dpkg()
+            
+        except subprocess.TimeoutExpired:
+            logger.warning("isoinfo command timed out")
+            return self._extract_sdk_version_from_dpkg()
+        except Exception as e:
+            logger.warning(f"Failed to extract SDK version from ISO: {e}")
+            return self._extract_sdk_version_from_dpkg()
+    
+    def _extract_sdk_version_from_dpkg(self):
+        """
+        Fallback: extract SDK version from installed dpkg packages.
+        Looks for packages matching 'vxr2-ngdp-sdk' pattern.
+        Returns the SDK identifier (e.g. 'sdkdc-24.10.2230.6') or None.
+        """
+        try:
+            result = subprocess.run(
+                ['dpkg', '-l'],
+                capture_output=True, text=True, timeout=15
+            )
+            for line in result.stdout.split('\n'):
+                if 'vxr2-ngdp-sdk' in line and line.startswith('ii'):
+                    parts = line.split()
+                    if len(parts) >= 2:
+                        pkg_name = parts[1]
+                        # Package name format: vxr2-ngdp-sdkdc-24.10.2230.6
+                        # Extract the SDK identifier after 'vxr2-ngdp-'
+                        sdk_id = pkg_name.replace('vxr2-ngdp-', '', 1)
+                        logger.info(f"Extracted SDK version from dpkg: {sdk_id}")
+                        return sdk_id
+            logger.warning("No vxr2-ngdp-sdk package found via dpkg")
+            return None
+        except Exception as e:
+            logger.warning(f"dpkg fallback failed: {e}")
+            return None
         
     def _refine_platform_from_extracted_files(self, extracted_files):
         """
@@ -402,7 +474,8 @@ class CreateSingleDocker:
             str(self.bake_and_build_script),
             "-i", str(self.iso_path),
             "-p", self.platform,
-            "-t", self.target
+            "-t", self.target,
+            "notty"
         ]
         
         if self.docker_name:
@@ -743,11 +816,14 @@ class CreateSingleDocker:
             # Create temporary directory
             self._create_temp_directory()
             
-            # Extract ISO tar file
+            # Extract ISO tar into its own subdirectory so the bake container
+            # only sees the ISO when USER_ISO_DIR is mounted as /nobackup/bake
+            iso_subdir = self.temp_dir / "iso"
+            iso_subdir.mkdir(mode=0o755)
             logger.debug("Extracting ISO tar file...")
-            iso_extracted_files = self._extract_tar_file(self.iso_tar_path, self.temp_dir)
+            iso_extracted_files = self._extract_tar_file(self.iso_tar_path, iso_subdir)
             
-            # Extract image tar file to the same directory
+            # Extract image tar to the main temp directory
             logger.debug("Extracting image tar file...")
             image_extracted_files = self._extract_tar_file(self.image_tar_path, self.temp_dir)
             
