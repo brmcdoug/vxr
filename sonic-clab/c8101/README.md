@@ -25,5 +25,22 @@ cd cisco8000e/sonic-clab/c8101/
 clab deploy -t topology.yaml
 ```
 
-4. 
+>[Note] it takes the 8000 emulator nodes several minutes to come up. Monitor their progress with *`docker logs -f node-name`*. Routers are ready when logs reach a point that says something like:
+
+```
+19:59:50 INFO Sim up
+Router up
+```
+
+4. ssh to routers *`(user:pw = admin:password)`* 
+   
+[SONiC CLI Reference](https://github.com/cisco-asp-web/SONiC/blob/main/SONiC_cli_reference.md)
+
+5. Optional: run the accompanying ansible script to apply configs (config_db.json and frr)
+```
+cd ansible/
+
+ansible-playbook -i hosts config-playbook.yaml -e "ansible_user=admin ansible_ssh_pass=password ansible_sudo_pass=password" -vv
+```
+
 
