@@ -7,6 +7,7 @@ Requirements:
 * **4 vCPU, 10G memory per node** 
 * Containerlab (tested using 0.74.2)
 * docker, kvm
+* Dockerized Cisco 8101 emulator image: *`c8000-clab-sonic:92`*
 
 
 1. clone the repo, cd into *`cisco8000e/sonic-clab/c8101/`*
