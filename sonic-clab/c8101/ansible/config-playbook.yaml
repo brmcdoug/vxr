@@ -35,21 +35,6 @@
       command: "sudo config save -y"
       ignore_errors: yes
 
-    # - name: add sr0 loopback interface
-    #   command: "sudo ip link add sr0 type dummy"
-    #   ignore_errors: yes
-
-    # - name: activate sr0 loopback interface
-    #   command: "sudo ip link set sr0 up"
-    #   ignore_errors: yes
-
-    # - name: Delete default sonic-vs BGP config
-    #   ansible.builtin.command: >
-    #     vtysh -c "configure terminal"
-    #     -c "no router bgp 65100"
-    #     -c "exit"
-    #   ignore_errors: yes
-
 - name: Load frr config
   hosts: sonic
   become: true
