@@ -1685,6 +1685,25 @@ do
   if [ $? -ne 0 ];
   then
     _inject_e_=0
+    # Pre-staged .deb under packages/debs (offline builds; e.g. docker cp before running this script)
+    if [[ ${_inside_docker_} ]];
+    then
+      shopt -s nullglob
+      _prestaged=(/opt/ovxr-release/packages/debs/vxr2-ngdp-*"${_cur_sdk_}"*.deb)
+      shopt -u nullglob
+      if [[ ${#_prestaged[@]} -gt 0 ]];
+      then
+        _dl_sdk_="${_prestaged[0]}"
+        outLog "Installing pre-staged SDK deb (offline, skips vxr-nfs): ${_dl_sdk_}"
+        sudo dpkg -i "${_dl_sdk_}"
+        if [[ $? -eq 0 ]];
+        then
+          outLog "Pre-staged SDK installed successfully"
+          continue
+        fi
+        outLog "WARNING: dpkg -i failed for pre-staged deb; will try download"
+      fi
+    fi
     outLog "SDK ${_cur_sdk_} not found in ${OVXR_DOCKER}. Attempting to download it"
     mkdir -p .tmp
     pushd .tmp >/dev/null 2>&1

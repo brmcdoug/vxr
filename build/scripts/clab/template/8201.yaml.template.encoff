@@ -1,0 +1,34 @@
+simulation:
+  no_image_copy: True
+
+devices:
+
+  R0:
+    platform: spitfire_f
+    image: /opt/cisco/images/8000/clab/8000-x64.iso
+    memory: "12GB"
+    linecard_types: ['_PLAT_TYPE_FILLER_']
+    prebaked:
+      rp:
+        - /opt/cisco/images/8000/clab/hda
+    console_ports: [60000,60001]
+    custom_mgmt_inf: True
+    CVAC
+    xr_commit_label: mgmt_config
+    xr_config: |
+        interface MgmtEth0/RP0/CPU0/0
+          ipv4 address MGMT_IP MGMT_MASK
+          no shutdown
+        !
+        router static
+          address-family ipv4 unicast
+           0.0.0.0/0 MGMT_GATEWAY
+          !
+        !
+
+connections:
+    custom:
+        mgmt:
+            ports: [R0.eth0]
+            ovs_bridge: mgmt_br
+            connection_type: tap
