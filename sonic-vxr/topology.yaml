@@ -120,6 +120,6 @@ connections:
 
   custom:
     mgmt:
-      ports: [leaf00.eth4, leaf01.eth4, spine00.eth4, spine01.eth4]
+      ports: [leaf00.eth0, leaf01.eth0, spine00.eth0, spine01.eth0]
       linux_bridge: virbr1
       connection_type: tap
