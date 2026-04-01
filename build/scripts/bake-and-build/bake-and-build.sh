@@ -1859,7 +1859,7 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
     outLog "Baking inside docker completed."
     
   else
-    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged --device /dev/kvm -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
+    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged --device /dev/kvm --security-opt seccomp=unconfined --security-opt apparmor=unconfined -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
     if [[ ${FORCE_SDK} ]];
     then
       _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} -e SKIP_SDK_CHECK=1 -e SDK_VER=${SDK_VER}"
@@ -1871,6 +1871,8 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
       _WRAPPER_FILE_="${USER_ISO_DIR}/_bake_wrapper.sh"
       cat > "${_WRAPPER_FILE_}" <<'WRAPPER_EOF'
 #!/bin/bash
+# Allow non-root users (vxr) to access KVM for QEMU
+chmod 666 /dev/kvm 2>/dev/null || true
 cp /etc/bake_in_container_startup.sh /tmp/bake_startup.sh
 WRAPPER_EOF
       cat >> "${_WRAPPER_FILE_}" <<WRAPPER_EOF
