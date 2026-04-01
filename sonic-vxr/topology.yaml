@@ -15,6 +15,7 @@ devices:
     linecard_types: ['8122-64EHF-O'] 
     linux_username: "admin"
     linux_password: "password"
+    custom_mgmt_inf: True
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.100/24
@@ -33,6 +34,7 @@ devices:
     linecard_types: ['8122-64EHF-O'] 
     linux_username: "admin"
     linux_password: "password"
+    custom_mgmt_inf: True
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.101/24
@@ -51,6 +53,7 @@ devices:
     linecard_types: ['8122-64EHF-O'] 
     linux_username: "admin"
     linux_password: "password"
+    custom_mgmt_inf: True
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.102/24
@@ -69,6 +72,7 @@ devices:
     linecard_types: ['8122-64EHF-O'] 
     linux_username: "admin"
     linux_password: "password"
+    custom_mgmt_inf: True
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.103/24
@@ -101,5 +105,5 @@ connections:
     custom:
         mgmt:
             ports: [leaf00.eth4, leaf01.eth4, spine00.eth4, spine01.eth4]
-            linux_bridge: mgmt_br
+            linux_bridge: virbr1
             connection_type: tap
