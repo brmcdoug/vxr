@@ -1,14 +1,14 @@
 # topology
 #
-#        r01 r02           
+#        s00 s01           
 #         | X |  
-#        r00 r03
+#        l00 l01
 
 simulation:
   no_image_copy: true
 
 devices:
-  r00: 
+  leaf00: 
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -18,14 +18,14 @@ devices:
     linux_config: |
         ip addr add dev eth4 192.168.123.100/24
         ip link set dev eth4 up
-    image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
-    onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid 002aac7b-2e72-45aa-9722-0456901ea895
     port_breakout:
       lc0:
         0..63: 2x400
 
-  r01: 
+  leaf01: 
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -35,14 +35,14 @@ devices:
     linux_config: |
         ip addr add dev eth4 192.168.123.101/24
         ip link set dev eth4 up
-    image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
-    onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid be46f561-2ca8-4670-addd-6619c4c58d5e
     port_breakout:
       lc0:
         0..63: 2x400
 
-  r02: 
+  spine00: 
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -52,14 +52,14 @@ devices:
     linux_config: |
         ip addr add dev eth4 192.168.123.102/24
         ip link set dev eth4 up
-    image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
-    onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid eaf1870e-43ed-4806-bda3-4dc57bed8dd6
     port_breakout:
       lc0:
         0..63: 2x400
 
-  r03: 
+  spine01: 
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -69,8 +69,8 @@ devices:
     linux_config: |
         ip addr add dev eth4 192.168.123.103/24
         ip link set dev eth4 up
-    image: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
-    onie-install: /home/cisco/images/8000-eft16.0/packages/images/8000/sonic/sonic-cisco-8000.bin
+    image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
+    onie-install: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/sonic-cisco-8000.bin
     qemu_args: -uuid be36fb91-8218-49eb-bda5-94fea84b5e1c
     port_breakout:
       lc0:
@@ -78,20 +78,20 @@ devices:
 
 connections:
   hubs:
-    r00r01:         
-      - r00.Ethernet0/0
-      - r01.Ethernet0/0
+    l00s00:         
+      - leaf00.Ethernet0/0
+      - spine00.Ethernet0/0
 
-    r00r02:         
-      - r00.Ethernet1/0
-      - r02.Ethernet0/0
+    l00s01:         
+      - leaf00.Ethernet1/0
+      - spine01.Ethernet0/0
 
-    r03r01:         
-      - r03.Ethernet0/0
-      - r01.Ethernet1/0
+    l01s00:         
+      - leaf01.Ethernet0/0
+      - spine00.Ethernet1/0
 
-    r03r02:         
-      - r03.Ethernet1/0
-      - r02.Ethernet1/0
+    l01s01:         
+      - leaf01.Ethernet1/0
+      - spine01.Ethernet1/0
 
   

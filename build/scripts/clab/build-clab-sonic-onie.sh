@@ -94,6 +94,15 @@ _resolve_eft_root() {
   done
   return 1
 }
+
+# Typical layout: .../<eft>/packages/images/8000/sonic/<bin> -> 4 dirnames from .../sonic == <eft>
+_likely_eft_root_from_sonic_bin() {
+  local p i
+  p="$(dirname "$(realpath "$SONIC_BIN")")"
+  for i in 1 2 3 4; do p="$(dirname "$p")"; done
+  realpath "$p" 2>/dev/null || echo "$p"
+}
+
 if [[ -z "${EFT_ROOT}" ]]; then
   if EFT_ROOT="$(_resolve_eft_root)"; then
     EFT_ROOT="$(realpath "${EFT_ROOT}")"
@@ -102,6 +111,23 @@ if [[ -z "${EFT_ROOT}" ]]; then
   fi
 else
   EFT_ROOT="$(realpath "${EFT_ROOT}")"
+fi
+
+# Fail fast if standard EFT layout has packages/ but no docker/kne (incomplete tarball)
+_LIKELY_="$(_likely_eft_root_from_sonic_bin)"
+if [[ -z "${EFT_ROOT}" && -d "${_LIKELY_}/packages" && ! -d "${_LIKELY_}/docker/kne" ]]; then
+  echo "ERROR: Incomplete EFT tree on this host."
+  echo "      Found ${_LIKELY_}/packages but NOT ${_LIKELY_}/docker/kne"
+  echo "      Copy docker/kne from a full ovxr-release / 8000 EFT bundle (same train as eft17), e.g.:"
+  echo "        mkdir -p ${_LIKELY_}/docker && cp -a /path/to/full-release/docker/kne ${_LIKELY_}/docker/"
+  echo "      Then re-run, or: --eft-root /path/that/contains/docker/kne"
+  exit 1
+fi
+
+if [[ -n "${EFT_ROOT}" && ! -d "${EFT_ROOT}/docker/kne" ]]; then
+  echo "ERROR: EFT_ROOT=${EFT_ROOT} does not contain docker/kne (Dockerfile8000sonic_*)."
+  echo "      Fix the path or copy docker/kne from a full ovxr-release drop into that tree."
+  exit 1
 fi
 
 IMAGES_DIR="${OVXR_ROOT}/packages/images"
@@ -161,8 +187,9 @@ if [[ -n "${EFT_ROOT}" && -d "${EFT_ROOT}/docker/kne" ]]; then
   docker exec "${CONTAINER_NAME}" sudo mkdir -p "${OVXR_ROOT}/docker/kne"
   docker cp "${EFT_ROOT}/docker/kne/." "${CONTAINER_NAME}:${OVXR_ROOT}/docker/kne/"
 else
-  echo "WARN: Could not find host directory ${EFT_ROOT:-<unset>}/docker/kne — CLAB build needs Dockerfile8000sonic_* there."
-  echo "      Set --eft-root to your EFT tree (e.g. /home/cisco/images/8000-eft17.0) or place docker/kne next to packages/ on the host."
+  _w="${EFT_ROOT:-${_LIKELY_}}"
+  echo "WARN: No host directory ${_w}/docker/kne — CLAB build needs Dockerfile8000sonic_* there."
+  echo "      Add docker/kne under your EFT root (see ERROR above if packages/ exists without docker/)."
 fi
 
 echo "==> Copying SONIC binary into container"
