@@ -16,12 +16,12 @@ devices:
     linux_username: "admin"
     linux_password: "password"
     custom_mgmt_inf: True
-    mgmt_gateway_ip: "192.168.122.1"
+    mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
-        ip addr add dev eth0 192.168.122.100/24
-        ip link set dev eth0 up
+        ip addr add dev eth4 192.168.123.100/24
+        ip link set dev eth4 up
     xr_config: |
-        sudo config interface ip add eth0 MGMT_IP/MGMT_MASK MGMT_GATEWAY
+        sudo config interface ip add eth4 MGMT_IP/MGMT_MASK MGMT_GATEWAY
         sudo config save -y
         SONIC_COMMANDS
     image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
@@ -39,12 +39,12 @@ devices:
     linux_username: "admin"
     linux_password: "password"
     custom_mgmt_inf: True
-    mgmt_gateway_ip: "192.168.122.1"
+    mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
-        ip addr add dev eth0 192.168.122.101/24
-        ip link set dev eth0 up
+        ip addr add dev eth4 192.168.123.101/24
+        ip link set dev eth4 up
     xr_config: |
-        sudo config interface ip add eth0 MGMT_IP/MGMT_MASK MGMT_GATEWAY
+        sudo config interface ip add eth4 MGMT_IP/MGMT_MASK MGMT_GATEWAY
         sudo config save -y
         SONIC_COMMANDS
     image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
@@ -62,12 +62,12 @@ devices:
     linux_username: "admin"
     linux_password: "password"
     custom_mgmt_inf: True
-    mgmt_gateway_ip: "192.168.122.1"
+    mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
-        ip addr add dev eth0 192.168.122.102/24
-        ip link set dev eth0 up
+        ip addr add dev eth4 192.168.123.102/24
+        ip link set dev eth4 up
     xr_config: |
-        sudo config interface ip add eth0 MGMT_IP/MGMT_MASK MGMT_GATEWAY
+        sudo config interface ip add eth4 MGMT_IP/MGMT_MASK MGMT_GATEWAY
         sudo config save -y
         SONIC_COMMANDS
     image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
@@ -85,12 +85,12 @@ devices:
     linux_username: "admin"
     linux_password: "password"
     custom_mgmt_inf: True
-    mgmt_gateway_ip: "192.168.122.1"
+    mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
-        ip addr add dev eth0 192.168.122.103/24
-        ip link set dev eth0 up
+        ip addr add dev eth4 192.168.123.103/24
+        ip link set dev eth4 up
     xr_config: |
-        sudo config interface ip add eth0 MGMT_IP/MGMT_MASK MGMT_GATEWAY
+        sudo config interface ip add eth4 MGMT_IP/MGMT_MASK MGMT_GATEWAY
         sudo config save -y
         SONIC_COMMANDS
     image: /home/cisco/images/8000-eft17.0/packages/images/8000/sonic/onie-recovery-x86_64-cisco_8000-r0.iso
@@ -120,6 +120,6 @@ connections:
 
   custom:
     mgmt:
-      ports: [leaf00.eth0, leaf01.eth0, spine00.eth0, spine01.eth0]
-      linux_bridge: virbr0
+      ports: [leaf00.eth4, leaf01.eth4, spine00.eth4, spine01.eth4]
+      linux_bridge: virbr1
       connection_type: tap
