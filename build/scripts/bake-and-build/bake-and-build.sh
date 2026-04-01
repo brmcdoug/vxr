@@ -1859,7 +1859,12 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
     outLog "Baking inside docker completed."
     
   else
-    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged --device /dev/kvm --security-opt seccomp=unconfined --security-opt apparmor=unconfined -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
+    # chmod /dev/kvm on host so it's accessible inside the container
+    chmod 666 /dev/kvm 2>/dev/null || sudo chmod 666 /dev/kvm 2>/dev/null || true
+    _KVM_GID_="$(stat -c '%g' /dev/kvm 2>/dev/null)"
+    _KVM_OPTS_="--device /dev/kvm"
+    [[ -n "${_KVM_GID_}" ]] && _KVM_OPTS_="${_KVM_OPTS_} --group-add ${_KVM_GID_}"
+    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged ${_KVM_OPTS_} --security-opt seccomp=unconfined --security-opt apparmor=unconfined -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
     if [[ ${FORCE_SDK} ]];
     then
       _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} -e SKIP_SDK_CHECK=1 -e SDK_VER=${SDK_VER}"
