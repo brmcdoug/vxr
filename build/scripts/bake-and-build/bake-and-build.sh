@@ -1871,6 +1871,11 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
       _WRAPPER_FILE_="${USER_ISO_DIR}/_bake_wrapper.sh"
       cat > "${_WRAPPER_FILE_}" <<'WRAPPER_EOF'
 #!/bin/bash
+# Ensure virbr1 bridge exists (required by VXR2 sim)
+if ! ip link show virbr1 &>/dev/null; then
+  brctl addbr virbr1 2>/dev/null || ip link add name virbr1 type bridge 2>/dev/null
+  ip link set virbr1 up
+fi
 cp /etc/bake_in_container_startup.sh /tmp/bake_startup.sh
 WRAPPER_EOF
       cat >> "${_WRAPPER_FILE_}" <<WRAPPER_EOF
