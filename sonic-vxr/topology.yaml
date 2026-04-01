@@ -9,6 +9,7 @@ simulation:
 
 devices:
   leaf00: 
+    console_ports: [40001]
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -26,6 +27,7 @@ devices:
         0..63: 2x400
 
   leaf01: 
+    console_ports: [40002]
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -43,6 +45,7 @@ devices:
         0..63: 2x400
 
   spine00: 
+    console_ports: [40003]
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
@@ -60,6 +63,7 @@ devices:
         0..63: 2x400
 
   spine01: 
+    console_ports: [40004]
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
