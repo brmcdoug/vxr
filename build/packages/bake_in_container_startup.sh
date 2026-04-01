@@ -177,6 +177,9 @@ function generate_yaml(){
 		sed -i 's|_VSCNPS_|#|g' ${yaml_path}
 	fi
 
+	# Handle NAV (NPU ASIC Version) placeholders from eft17+ templates
+	sed -i 's|_NAV_|#|g' ${yaml_path}
+
 }
 
 function _checkSimCfgInjection_(){

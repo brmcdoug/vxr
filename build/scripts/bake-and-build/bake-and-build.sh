@@ -1859,28 +1859,39 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
     outLog "Baking inside docker completed."
     
   else
-    # Patch the container's bake entrypoint to support platforms from the
-    # host's allowed_plats file that the container image may not know about.
-    # This creates a wrapper entrypoint that injects the platform into the
-    # container's validation before running the real entrypoint.
-    _PATCH_PLAT_CMD_=""
-    if [[ -f "${_allowed_plats_file_}" ]]; then
-      _PATCH_PLAT_CMD_="--entrypoint /bin/bash"
-      _BAKE_WRAPPER_="cp /etc/bake_in_container_startup.sh /tmp/bake_startup.sh && sed -i \"s/8711-32FH-M)/8711-32FH-M | ${PLAT_TO_BUILD})/\" /tmp/bake_startup.sh && chmod +x /tmp/bake_startup.sh && /tmp/bake_startup.sh"
-    fi
-
     _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
     if [[ ${FORCE_SDK} ]];
     then
       _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} -e SKIP_SDK_CHECK=1 -e SDK_VER=${SDK_VER}"
     fi
-    if [[ "${_PATCH_PLAT_CMD_}" != "" ]]; then
-      _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} ${_PATCH_PLAT_CMD_} ${OVXR_DOCKER} -c '${_BAKE_WRAPPER_}'"
+
+    if [[ -f "${_allowed_plats_file_}" ]]; then
+      # Write wrapper script to a file on disk (mounted into container at /nobackup/bake).
+      # This avoids nested-quoting issues with eval + docker -c.
+      _WRAPPER_FILE_="${USER_ISO_DIR}/_bake_wrapper.sh"
+      cat > "${_WRAPPER_FILE_}" <<'WRAPPER_EOF'
+#!/bin/bash
+cp /etc/bake_in_container_startup.sh /tmp/bake_startup.sh
+WRAPPER_EOF
+      cat >> "${_WRAPPER_FILE_}" <<WRAPPER_EOF
+if ! grep -q "${PLAT_TO_BUILD}" /tmp/bake_startup.sh; then
+  sed -i "/8201-sys.*)/s/)/ | ${PLAT_TO_BUILD})/" /tmp/bake_startup.sh
+fi
+WRAPPER_EOF
+      cat >> "${_WRAPPER_FILE_}" <<'WRAPPER_EOF'
+for tpl in /opt/cisco/pyvxr/examples/precook_template/*.yaml; do
+  sed -i 's|_NAV_|#|g' "${tpl}" 2>/dev/null
+done
+chmod +x /tmp/bake_startup.sh
+exec /tmp/bake_startup.sh
+WRAPPER_EOF
+      chmod +x "${_WRAPPER_FILE_}"
+      _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} --entrypoint /bin/bash ${OVXR_DOCKER} /nobackup/bake/_bake_wrapper.sh"
     else
       _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} ${OVXR_DOCKER}"
     fi
     outLog "Bake Docker Cmd: ${_DOCKER_BUILD_CMD_}"
-    eval "${_DOCKER_BUILD_CMD_}"
+    ${_DOCKER_BUILD_CMD_}
     [ $? -ne 0 ] && exit 1 #TODO: exit help message
   fi
   fi
