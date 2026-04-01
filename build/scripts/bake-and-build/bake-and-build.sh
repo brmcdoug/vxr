@@ -1859,7 +1859,7 @@ if [[ ${SKIP_BAKE_ENV} -eq 0 ]]; then
     outLog "Baking inside docker completed."
     
   else
-    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
+    _DOCKER_BUILD_CMD_="docker run --rm ${_TTY_} --privileged --device /dev/kvm -e ACTION=bake -v ${USER_ISO_DIR}:/nobackup/bake -e PLAT_BUILD=${PLAT_TO_BUILD}"
     if [[ ${FORCE_SDK} ]];
     then
       _DOCKER_BUILD_CMD_="${_DOCKER_BUILD_CMD_} -e SKIP_SDK_CHECK=1 -e SDK_VER=${SDK_VER}"
