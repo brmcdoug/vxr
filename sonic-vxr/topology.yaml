@@ -12,8 +12,8 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "password"
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.100/24
@@ -29,8 +29,8 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "password"
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.101/24
@@ -46,8 +46,8 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "password"
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.102/24
@@ -63,8 +63,8 @@ devices:
     platform: spitfire_f
     os_type: sonic
     linecard_types: ['8122-64EHF-O'] 
-    linux_username: "cisco"
-    linux_password: "cisco123"
+    linux_username: "admin"
+    linux_password: "password"
     mgmt_gateway_ip: "192.168.123.1"
     linux_config: |
         ip addr add dev eth4 192.168.123.103/24
