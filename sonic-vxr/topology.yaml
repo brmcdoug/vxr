@@ -118,8 +118,3 @@ connections:
       - leaf01.Ethernet1/0
       - spine01.Ethernet1/0
 
-  custom:
-    mgmt:
-      ports: [leaf00.eth0, leaf01.eth0, spine00.eth0, spine01.eth0]
-      linux_bridge: mgmt_br
-      connection_type: tap
